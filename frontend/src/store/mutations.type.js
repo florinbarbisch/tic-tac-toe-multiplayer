@@ -1,0 +1,10 @@
+export const PURGE_AUTH = "logOut";
+export const SET_SINGLEPLAYER_GAME = "setSingleplayerGame";
+export const SET_SINGLEPLAYER_GAMES = "setSingleplayerGames";
+export const SET_MULTIPLAYER_GAME = "setMultiplayerGame";
+export const SET_MULTIPLAYER_GAMES = "setMultiplayerGames";
+export const SET_OPPONENTS = "setOpponents";
+export const SET_AUTH = "setUser";
+export const SET_USERS = "setUsers";
+export const SET_ERROR = "setError";
+export const RESET_STATE = "resetModuleState";

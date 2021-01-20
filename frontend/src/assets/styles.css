@@ -1,0 +1,90 @@
+.table td, .table th {
+  vertical-align: middle;
+}
+
+.boardWrapper {
+  justify-content: center;
+  display: flex;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.board {
+  margin: auto;
+}
+
+.board .boardRow .boardCell {
+  height: 6rem;
+  width: 6rem;
+  border-color: #6c757d;
+  float: left;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 6rem;
+  font-size: 4rem;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+.boardSmall .boardRow .boardCell {
+  height: 1rem;
+  width: 1rem;
+  border-color: #6c757d;
+  float: left;
+  border-width: 1px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1rem;
+  font-size: 0.6rem;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+.cell1 {
+  border-right-style: solid;
+  border-bottom-style: solid;
+}
+
+.cell2 {
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+}
+
+.cell3 {
+  border-bottom-style: solid;
+  border-left-style: solid;
+}
+
+.cell4 {
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+}
+
+.cell5 {
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+}
+
+.cell6 {
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+}
+
+.cell7 {
+  border-top-style: solid;
+  border-right-style: solid;
+}
+
+.cell8 {
+  border-top-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+}
+
+.cell9 {
+  border-top-style: solid;
+  border-left-style: solid;
+}

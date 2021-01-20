@@ -1,0 +1,120 @@
+<template>
+  <div class="container">
+    <div>
+      <h1>History of Multi-Player Games</h1>
+      <form>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col-xl-2">
+              <label class="col-form-label" for="opponent">Opponent</label>
+            </div>
+            <div class="col">
+              <select
+                class="border rounded-pill form-control"
+                id="opponent"
+                v-model="opponent"
+              >
+                <option value="">Select an opponent</option>
+                <option
+                  :value="opponent._id"
+                  v-for="opponent in opponents"
+                  :key="opponent._id"
+                >
+                  {{ opponent.username }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Opponent</th>
+                  <th>Result</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="game in multiplayerGames"
+                  :key="game._id"
+                  @click="navigate(game._id)"
+                  style="cursor: pointer"
+                >
+                  <td>{{ game._id }}</td>
+                  <td>{{ game.opponent.username }}</td>
+                  <td>{{ game.statusText }}</td>
+                  <td>
+                    <div class="boardWrapper">
+                      <div class="boardSmall">
+                        <div class="boardRow">
+                          <div class="boardCell cell1">{{ game.cell1 }}</div>
+                          <div class="boardCell cell2">{{ game.cell2 }}</div>
+                          <div class="boardCell cell3">{{ game.cell3 }}</div>
+                        </div>
+                        <div class="boardRow">
+                          <div class="boardCell cell4">{{ game.cell4 }}</div>
+                          <div class="boardCell cell5">{{ game.cell5 }}</div>
+                          <div class="boardCell cell6">{{ game.cell6 }}</div>
+                        </div>
+                        <div class="boardRow">
+                          <div class="boardCell cell7">{{ game.cell7 }}</div>
+                          <div class="boardCell cell8">{{ game.cell8 }}</div>
+                          <div class="boardCell cell9">{{ game.cell9 }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters } from "vuex";
+import store from "@/store";
+import { FETCH_MULTIPLAYER_GAMES, FETCH_OPPONENTS } from "@/store/actions.type";
+
+export default {
+  name: "HistoryMultiplayer",
+  data() {
+    return {
+      opponent: null
+    };
+  },
+  mounted() {
+    this.opponent = "";
+    store.dispatch(FETCH_OPPONENTS);
+  },
+  computed: {
+    ...mapGetters(["multiplayerGames", "opponents"])
+  },
+  methods: {
+    navigate(gameId) {
+      this.$router.push({
+        name: "multiplayer.result",
+        params: { gameId: gameId }
+      });
+    }
+  },
+  watch: {
+    opponent: function() {
+      let opponent = this.opponent;
+      store.dispatch(FETCH_MULTIPLAYER_GAMES, {
+        opponent: opponent,
+        status: "Finished"
+      });
+    }
+  }
+};
+</script>
