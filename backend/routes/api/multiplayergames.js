@@ -107,22 +107,55 @@ router.post('/', auth.required, function(req, res, next) {
       return res.status(422).send({opponent: "can't be blank"});
     }
     
-    // if invite random don't create maybe
+    if (req.body.inviteMode === 'random') {
+      MultiplayerGame.findOne({ openForRandom: true, player1: { $ne: user } })
+          .populate('player1')
+          .populate('player2')
+          .populate('movingPlayer')
+          .exec().then(function(game) {
+            if (game) {
+              return game.setPlayer2(user).then(function(){
+                return res.json({MultiplayerGame: game.toJSONFor(user)});
+              });
+            } else {
+              game = new MultiplayerGame();
+              game.winner = 'Ongoing'
+              game.player1 = user;
+              game.movingPlayer = game.player1;
+              game.openForRandom = true;
+              return game.save().then(function(){
+                return res.json({MultiplayerGame: game.toJSONFor(user)});
+              });
+            }
+          });
+    } else {
+      var game = new MultiplayerGame();
+      game.winner = 'Ongoing'
+      game.player1 = user;
+      game.movingPlayer = game.player1;
 
-    var game = new MultiplayerGame();
-    game.winner = 'Ongoing'
-    game.player1 = user;
-    game.movingPlayer = game.player1;
-
-    if (req.body.inviteMode === 'select') {
-      game.player2 = opponent;
+      if (req.body.inviteMode === 'select') {
+        game.player2 = opponent;
+      }
+      return game.save().then(function(){
+        return res.json({MultiplayerGame: game.toJSONFor(user)});
+      });
     }
+  }).catch(next);
+});
 
+router.get('/openForRandom', auth.required, function(req, res, next) {
+  User.findById(req.payload.id).then(function(user) {
+    if (!user) { return res.sendStatus(401); }
 
-    return game.save().then(function(){
-      console.log(game.player);
-      return res.json({MultiplayerGame: game.toJSONFor(user)});
-    });
+    MultiplayerGame.findOne({ openForRandom: true, player1: { $ne: user } })
+    .populate('player1')
+    .populate('player2')
+    .populate('movingPlayer')
+    .exec()
+    .then(function(game) {
+      return res.json({MultiplayerGame: game ? game.toJSONFor(user) : null});
+    }).catch(next);
   }).catch(next);
 });
 

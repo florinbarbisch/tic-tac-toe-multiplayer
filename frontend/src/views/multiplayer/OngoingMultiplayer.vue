@@ -22,7 +22,7 @@
                   style="cursor: pointer"
                 >
                   <td>{{ game._id }}</td>
-                  <td>{{ game.opponent.username }}</td>
+                  <td>{{ game.opponent ? game.opponent.username : "" }}</td>
                   <td>
                     <div class="boardWrapper">
                       <div class="boardSmall">

@@ -5,7 +5,8 @@ var MultiplayerGameSchema = new mongoose.Schema({
   player1: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   player2: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   movingPlayer: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-  winner:  {type: String, enum: ['X', 'O', 'D', 'Ongoing']},
+  winner: {type: String, enum: ['X', 'O', 'D', 'Ongoing']},
+  openForRandom: {type: Boolean, default: false },
   cell1: {type: String, enum: ['X', 'O', null], default: null},
   cell2: {type: String, enum: ['X', 'O', null], default: null},
   cell3: {type: String, enum: ['X', 'O', null], default: null},
@@ -25,6 +26,9 @@ MultiplayerGameSchema.methods.setPlayer2 = function(player) {
   this.player2 = player;
   if (!this.movingPlayer) {
     this.movingPlayer = player;
+  }
+  if (this.openForRandom) {
+    this.openForRandom = false;
   }
 
   return this.save();

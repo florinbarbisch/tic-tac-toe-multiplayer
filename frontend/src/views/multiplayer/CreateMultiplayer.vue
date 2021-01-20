@@ -84,6 +84,7 @@ export default {
         })
         .then(data => {
           switch (inviteMode) {
+            case "random":
             case "select":
               this.$router.push({
                 name: "multiplayer.play",
