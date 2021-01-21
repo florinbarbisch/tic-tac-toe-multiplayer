@@ -16,7 +16,6 @@ router.param('game', function(req, res, next, game) {
   }).catch(next);
 });
 
-
 router.get('/', auth.required, function(req, res, next) {
   var query = {};
   if(req.query.difficulty) {

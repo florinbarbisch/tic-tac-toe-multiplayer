@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 var MultiplayerGame = mongoose.model('MultiplayerGame');
 var User = mongoose.model('User');
 var auth = require('../auth');
-var socketIO = require('socket.io');
 const { use } = require('express/lib/application');
 
 // Preload game on routes with ':game'

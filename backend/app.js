@@ -6,14 +6,12 @@ var path = require('path'),
     cors = require('cors'),
     passport = require('passport'),
     errorhandler = require('errorhandler'),
-    mongoose = require('mongoose'),
-    socketIO = require('socket.io');
+    mongoose = require('mongoose');
 
 var isProduction = process.env.NODE_ENV === 'production';
 
 // Create global app object
 var app = express();
-
 
 app.use(cors());
 
@@ -27,63 +25,6 @@ app.io.attach(server, {
     methods: ["GET", "POST"]
   }
 });
-
-/*
-app.io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-});*/
-/*
-const io = require('socket.io')(server, {
-  cors: {
-    origin: "http://localhost:8080",
-    methods: ["GET", "POST"]
-  }
-});
-
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-
-
-
-  setInterval(function() {
-    io.emit('gameUpdate', {MultiplayerGame: {
-      _id: "600741e10cc982e42f4842d0",
-      player: {
-          __dirname: "600474cda7419ba84a5065bd",
-          username: "ass"
-      },
-      opponent: {
-          _id: "6005d9a9b3f2b2d02b200fba",
-          username: "root"
-      },
-      yourTurn: false,
-      winner: "Ongoing",
-      statusText: null,
-      cell1: null,
-      cell2: null,
-      cell3: null,
-      cell4: "O",
-      cell5: "X",
-      cell6: null,
-      cell7: null,
-      cell8: null,
-      cell9: null
-    }
-  }); 
-  console.log("emitting bullshit")
-  // This will emit the event to all connected sockets every 5 secs
-  }, 500000000);
-  
-});
-
-*/
 
 // Normal express config defaults
 app.use(require('morgan')('dev'));
@@ -106,12 +47,9 @@ if(isProduction){
   mongoose.set('debug', true);
 }
 
-
 require('./models/User');
-require('./models/Article');
 require('./models/MultiplayerGame');
 require('./models/SingleplayerGame');
-require('./models/Comment');
 require('./config/passport');
 
 app.use(require('./routes')(app.io));

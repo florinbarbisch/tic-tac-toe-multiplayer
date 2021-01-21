@@ -12,7 +12,5 @@ export default new Vuex.Store({
     singleplayer,
     multiplayer,
     auth
-    //article,
-    //profile
   }
 });
