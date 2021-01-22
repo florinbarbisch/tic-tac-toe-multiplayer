@@ -11,8 +11,8 @@ m306 project
 - [x] Teil 2 des IPA-Berichts: Initialisierung – Analyse, Varianten
 - [x] Teil 2 des IPA-Berichts: Konzept
 - [x] Teil 2 des IPA-Berichts: Realisierung – Anwendung erstellen und Testen
-- [ ] Teil 2 des IPA-Berichts: Bericht abschlissen
-- [ ] Bewertungskriterien durchgehen und sicherstellen, dass alle Kriterien erfüllt sind
+- [x] Teil 2 des IPA-Berichts: Bericht abschlissen
+- [x] Bewertungskriterien durchgehen und sicherstellen, dass alle Kriterien erfüllt sind
 - [ ] Live-Demo der Anwendung
 
 
