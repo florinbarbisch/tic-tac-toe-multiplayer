@@ -76,11 +76,6 @@ const router = new Router({
       component: () => import("@/views/multiplayer/CopyInvite")
     },
     {
-      name: "multiplayer.acceptInvite",
-      path: "/multiplayer/acceptInvite/:gameId",
-      component: () => import("@/views/multiplayer/AcceptInvite")
-    },
-    {
       name: "multiplayer.play",
       path: "/multiplayer/play/:gameId",
       component: () => import("@/views/multiplayer/PlayMultiplayer")

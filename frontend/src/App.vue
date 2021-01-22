@@ -68,7 +68,7 @@ export default {
   methods: {
     onSignout() {
       this.$store.dispatch(LOGOUT).then(() => {
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: "signin" });
       });
     }
   }

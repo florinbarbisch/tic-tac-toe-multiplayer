@@ -17,26 +17,28 @@ router.param('game', function(req, res, next, game) {
 });
 
 router.get('/', auth.required, function(req, res, next) {
-  var query = {};
-  if(req.query.difficulty) {
-    query.difficulty = req.query.difficulty;
-  }
-  if(req.query.status == 'Finished') {
-    query.status = { $ne: 'Ongoing'};
-  } else if (req.query.status) {
-    query.status = req.query.status;
-  }
-  return Promise.all([
-    SingleplayerGame.find(query)
-      .populate('player')
-      .sort({createdAt: 'desc'})
-      .exec(),
-      User.findById(req.payload.id),
-  ]).then(function(results){
-    var games = results[0];
-    var user = results[1];
+  User.findById(req.payload.id).then(function(user){
+    var query = { player: user };
+    if(req.query.difficulty) {
+      query.difficulty = req.query.difficulty;
+    }
+    if(req.query.status == 'Finished') {
+      query.status = { $ne: 'Ongoing'};
+    } else if (req.query.status) {
+      query.status = req.query.status;
+    }
+    return Promise.all([
+      SingleplayerGame.find(query)
+        .populate('player')
+        .sort({createdAt: 'desc'})
+        .exec(),
+        User.findById(req.payload.id),
+    ]).then(function(results){
+      var games = results[0];
+      var user = results[1];
 
-    return res.json({singleplayerGames: games.map(game => game.toJSONFor(user))});
+      return res.json({singleplayerGames: games.map(game => game.toJSONFor(user))});
+    }).catch(next);
   }).catch(next);
 });
 

@@ -15,9 +15,10 @@ var app = express();
 
 app.use(cors());
 
-app.io = require('socket.io')();
 
 var server = require('http').Server(app);
+
+app.io = require('socket.io')();
 
 app.io.attach(server, {
   cors: {
