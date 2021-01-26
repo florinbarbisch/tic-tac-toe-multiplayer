@@ -5,7 +5,10 @@
       <div class="row">
         <div class="col">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table
+              class="table table-striped"
+              v-if="multiplayerGames.length > 0"
+            >
               <thead>
                 <tr>
                   <th>#</th>
@@ -58,6 +61,7 @@
                 </tr>
               </tbody>
             </table>
+            <NoResults v-else />
           </div>
         </div>
       </div>
@@ -69,9 +73,11 @@
 import store from "@/store";
 import { FETCH_MULTIPLAYER_GAMES } from "@/store/actions.type";
 import { mapGetters } from "vuex";
+import NoResults from "@/components/NoResults";
 
 export default {
   name: "OngoingMultiplayer",
+  components: { NoResults },
   mounted() {
     store.dispatch(FETCH_MULTIPLAYER_GAMES);
   },

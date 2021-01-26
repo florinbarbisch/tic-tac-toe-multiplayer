@@ -58,7 +58,7 @@ export default {
     this.unsubscribe();
   },
   computed: {
-    ...mapGetters(["game"])
+    ...mapGetters(["singleplayer.game"])
   },
   methods: {
     onSubmit(difficulty) {

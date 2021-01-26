@@ -29,7 +29,10 @@
       <div class="row">
         <div class="col">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table
+              class="table table-striped"
+              v-if="singleplayerGames.length > 0"
+            >
               <thead>
                 <tr>
                   <th>#</th>
@@ -72,6 +75,7 @@
                 </tr>
               </tbody>
             </table>
+            <NoResults v-else />
           </div>
         </div>
       </div>
@@ -83,9 +87,11 @@
 import { mapGetters } from "vuex";
 import store from "@/store";
 import { FETCH_SINGLEPLAYER_GAMES } from "@/store/actions.type";
+import NoResults from "@/components/NoResults";
 
 export default {
   name: "SingleplayerHistory",
+  components: { NoResults },
   data() {
     return {
       difficulty: null

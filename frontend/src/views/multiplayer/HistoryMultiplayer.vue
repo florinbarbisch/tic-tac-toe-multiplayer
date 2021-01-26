@@ -16,6 +16,7 @@
               >
                 <option value="">Select an opponent</option>
                 <option
+                  v-if="opponents"
                   :value="opponent._id"
                   v-for="opponent in opponents"
                   :key="opponent._id"
@@ -30,7 +31,10 @@
       <div class="row">
         <div class="col">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table
+              class="table table-striped"
+              v-if="multiplayerGames.length > 0"
+            >
               <thead>
                 <tr>
                   <th>#</th>
@@ -73,6 +77,7 @@
                 </tr>
               </tbody>
             </table>
+            <NoResults v-else />
           </div>
         </div>
       </div>
@@ -84,9 +89,11 @@
 import { mapGetters } from "vuex";
 import store from "@/store";
 import { FETCH_MULTIPLAYER_GAMES, FETCH_OPPONENTS } from "@/store/actions.type";
+import NoResults from "@/components/NoResults";
 
 export default {
   name: "HistoryMultiplayer",
+  components: { NoResults },
   data() {
     return {
       opponent: null
