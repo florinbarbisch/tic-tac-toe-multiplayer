@@ -30,3 +30,31 @@ CSS|1|13|0|77
 HTML|1|0|1|16
 --------|--------|--------|--------|--------
 SUM:|56|267|111|3342
+
+
+# Installation
+
+## Frontend
+```cmd
+cd .\frontend\
+yarn
+```
+
+## Backend
+```cmd
+cd .\backend\
+yarn
+```
+
+# Run
+## Frontend
+```cmd
+cd .\frontend\
+yarn serve
+```
+
+## Backend
+```cmd
+cd .\backend\
+yarn start
+```
