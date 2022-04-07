@@ -27,25 +27,7 @@
                   <td>{{ game._id }}</td>
                   <td>{{ game.opponent ? game.opponent.username : "" }}</td>
                   <td>
-                    <div class="boardWrapper">
-                      <div class="boardSmall">
-                        <div class="boardRow">
-                          <div class="boardCell cell1">{{ game.cell1 }}</div>
-                          <div class="boardCell cell2">{{ game.cell2 }}</div>
-                          <div class="boardCell cell3">{{ game.cell3 }}</div>
-                        </div>
-                        <div class="boardRow">
-                          <div class="boardCell cell4">{{ game.cell4 }}</div>
-                          <div class="boardCell cell5">{{ game.cell5 }}</div>
-                          <div class="boardCell cell6">{{ game.cell6 }}</div>
-                        </div>
-                        <div class="boardRow">
-                          <div class="boardCell cell7">{{ game.cell7 }}</div>
-                          <div class="boardCell cell8">{{ game.cell8 }}</div>
-                          <div class="boardCell cell9">{{ game.cell9 }}</div>
-                        </div>
-                      </div>
-                    </div>
+                    <board :small="true" v-bind:game="game"/>
                   </td>
                   <td>
                     <button
@@ -74,10 +56,11 @@ import store from "@/store";
 import { FETCH_MULTIPLAYER_GAMES } from "@/store/actions.type";
 import { mapGetters } from "vuex";
 import NoResults from "@/components/NoResults";
+import Board from "@/components/Board";
 
 export default {
   name: "OngoingMultiplayer",
-  components: { NoResults },
+  components: { NoResults, Board },
   mounted() {
     store.dispatch(FETCH_MULTIPLAYER_GAMES, {
       status: "Ongoing"

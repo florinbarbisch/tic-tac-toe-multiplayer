@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <h1>History of Multi-Player Games</h1>
-      <form v-if="opponents.length > 0">
+      <form>
         <div class="form-group">
           <div class="form-row">
             <div class="col-xl-2">
@@ -13,6 +13,7 @@
                 class="border rounded-pill form-control"
                 id="opponent"
                 v-model="opponent"
+                v-if="opponents.length > 0"
               >
                 <option value="">Select an opponent</option>
                 <option
@@ -22,6 +23,15 @@
                 >
                   {{ opponent.username }}
                 </option>
+              </select>
+              <select
+                class="border rounded-pill form-control"
+                id="opponent"
+                disabled
+                v-model="opponent"
+                v-else
+              >
+                <option value="">No opponents found</option>
               </select>
             </div>
           </div>
@@ -53,25 +63,7 @@
                   <td>{{ game.opponent.username }}</td>
                   <td>{{ game.statusText }}</td>
                   <td>
-                    <div class="boardWrapper">
-                      <div class="boardSmall">
-                        <div class="boardRow">
-                          <div class="boardCell cell1">{{ game.cell1 }}</div>
-                          <div class="boardCell cell2">{{ game.cell2 }}</div>
-                          <div class="boardCell cell3">{{ game.cell3 }}</div>
-                        </div>
-                        <div class="boardRow">
-                          <div class="boardCell cell4">{{ game.cell4 }}</div>
-                          <div class="boardCell cell5">{{ game.cell5 }}</div>
-                          <div class="boardCell cell6">{{ game.cell6 }}</div>
-                        </div>
-                        <div class="boardRow">
-                          <div class="boardCell cell7">{{ game.cell7 }}</div>
-                          <div class="boardCell cell8">{{ game.cell8 }}</div>
-                          <div class="boardCell cell9">{{ game.cell9 }}</div>
-                        </div>
-                      </div>
-                    </div>
+                    <board :small="true" v-bind:game="game"/>
                   </td>
                 </tr>
               </tbody>
@@ -89,10 +81,11 @@ import { mapGetters } from "vuex";
 import store from "@/store";
 import { FETCH_MULTIPLAYER_GAMES, FETCH_OPPONENTS } from "@/store/actions.type";
 import NoResults from "@/components/NoResults";
+import Board from "@/components/Board";
 
 export default {
   name: "HistoryMultiplayer",
-  components: { NoResults },
+  components: { NoResults, Board },
   data() {
     return {
       opponent: null

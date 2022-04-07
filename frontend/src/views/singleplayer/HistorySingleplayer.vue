@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <h1>History of Single-Player Games</h1>
-      <form v-if="singleplayerGames.length > 0">
+      <form>
         <div class="form-group">
           <div class="form-row">
             <div class="col-xl-2">
@@ -52,25 +52,7 @@
                   <td>{{ game.difficulty }}</td>
                   <td>{{ game.status }}</td>
                   <td>
-                    <div class="boardWrapper">
-                      <div class="boardSmall">
-                        <div class="boardRow">
-                          <div class="boardCell cell1">{{ game.cell1 }}</div>
-                          <div class="boardCell cell2">{{ game.cell2 }}</div>
-                          <div class="boardCell cell3">{{ game.cell3 }}</div>
-                        </div>
-                        <div class="boardRow">
-                          <div class="boardCell cell4">{{ game.cell4 }}</div>
-                          <div class="boardCell cell5">{{ game.cell5 }}</div>
-                          <div class="boardCell cell6">{{ game.cell6 }}</div>
-                        </div>
-                        <div class="boardRow">
-                          <div class="boardCell cell7">{{ game.cell7 }}</div>
-                          <div class="boardCell cell8">{{ game.cell8 }}</div>
-                          <div class="boardCell cell9">{{ game.cell9 }}</div>
-                        </div>
-                      </div>
-                    </div>
+                    <board :small="true" v-bind:game="game"/>
                   </td>
                 </tr>
               </tbody>
@@ -88,10 +70,11 @@ import { mapGetters } from "vuex";
 import store from "@/store";
 import { FETCH_SINGLEPLAYER_GAMES } from "@/store/actions.type";
 import NoResults from "@/components/NoResults";
+import Board from "@/components/Board";
 
 export default {
   name: "SingleplayerHistory",
-  components: { NoResults },
+  components: { NoResults, Board },
   data() {
     return {
       difficulty: null
