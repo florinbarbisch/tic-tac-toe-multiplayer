@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <h1>History of Multi-Player Games</h1>
-      <form>
+      <form v-if="opponents.length > 0">
         <div class="form-group">
           <div class="form-row">
             <div class="col-xl-2">
@@ -16,7 +16,6 @@
               >
                 <option value="">Select an opponent</option>
                 <option
-                  v-if="opponents"
                   :value="opponent._id"
                   v-for="opponent in opponents"
                   :key="opponent._id"

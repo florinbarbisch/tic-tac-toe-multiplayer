@@ -5,7 +5,7 @@
         class="col-sm-10 col-md-8 col-lg-6 col-xl-6 offset-sm-1 offset-md-2 offset-lg-3 offset-xl-3"
       >
         <h4 class="text-center">
-          Playing Single-Player Game #{{ currentMultiplayerGame._id }}<br />
+          Playing Multi-Player Game #{{ currentMultiplayerGame._id }}<br />
         </h4>
         <h6 class="text-center text-muted mb-2">
           Opponent:

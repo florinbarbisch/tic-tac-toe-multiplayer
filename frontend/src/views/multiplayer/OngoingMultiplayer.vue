@@ -79,7 +79,9 @@ export default {
   name: "OngoingMultiplayer",
   components: { NoResults },
   mounted() {
-    store.dispatch(FETCH_MULTIPLAYER_GAMES);
+    store.dispatch(FETCH_MULTIPLAYER_GAMES, {
+      status: "Ongoing"
+    });
   },
   computed: {
     ...mapGetters(["multiplayerGames"])

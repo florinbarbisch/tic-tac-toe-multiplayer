@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <h1>History of Single-Player Games</h1>
-      <form>
+      <form v-if="singleplayerGames.length > 0">
         <div class="form-group">
           <div class="form-row">
             <div class="col-xl-2">
