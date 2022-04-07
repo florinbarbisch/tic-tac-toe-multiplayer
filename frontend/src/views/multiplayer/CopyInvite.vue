@@ -7,23 +7,15 @@
         <h3 class="text-center">
           Copy your Invite Link and send it to your Opponent
         </h3>
-        <a
-          :href="
-            'http://localhost:8080/multiplayer/play/' +
-              currentMultiplayerGame._id
-          "
-          ><span style="text-decoration: underline;">{{
-            "http://localhost:8080/multiplayer/play/" +
-              currentMultiplayerGame._id
+        <a :href="API_URL + '/multiplayer/play/' + currentMultiplayerGame._id">
+          <span style="text-decoration: underline;">{{
+            API_URL + "/multiplayer/play/" + currentMultiplayerGame._id
           }}</span></a
         >
         <a
           class="btn btn-primary btn-block text-center border rounded-pill"
           role="button"
-          :href="
-            'http://localhost:8080/multiplayer/play/' +
-              currentMultiplayerGame._id
-          "
+          :href="API_URL + '/multiplayer/play/' + currentMultiplayerGame._id"
           >Continue to game!</a
         >
       </div>
@@ -35,13 +27,15 @@
 import { mapGetters } from "vuex";
 import store from "@/store";
 import { FETCH_MULTIPLAYER_GAME } from "@/store/actions.type";
+import { API_URL } from "@/common/config";
 
 export default {
   name: "CopyLink",
   computed: {
     ...mapGetters({
       currentMultiplayerGame: "currentMultiplayerGame"
-    })
+    }),
+    API_URL
   },
   beforeRouteEnter(to, from, next) {
     Promise.all([

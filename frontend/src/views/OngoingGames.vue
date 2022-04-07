@@ -1,7 +1,7 @@
 <template>
   <div>
-    <OngoingSingleplayer></OngoingSingleplayer>
-    <OngoingMultiplayer></OngoingMultiplayer>
+    <OngoingSingleplayer />
+    <OngoingMultiplayer />
   </div>
 </template>
 
