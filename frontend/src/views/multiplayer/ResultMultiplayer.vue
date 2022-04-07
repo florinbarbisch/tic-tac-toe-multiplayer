@@ -7,13 +7,13 @@
             <h4 class="text-center">
               Multi-Player Game #{{ currentMultiplayerGame._id }}<br />
             </h4>
-            <h4 class="text-center text-muted mb-2" >
+            <h4 class="text-center text-muted mb-2">
               Opponent: {{ currentMultiplayerGame.opponent.username }}
             </h4>
             <h6 class="text-center text-muted mb-2">
               {{ currentMultiplayerGame.statusText }}
             </h6>
-              <board v-bind:game="currentMultiplayerGame"/>
+            <board v-bind:game="currentMultiplayerGame" />
             <button
               class="btn btn-primary btn-block text-center border rounded-pill"
               type="button"
@@ -35,7 +35,7 @@ import {
   FETCH_MULTIPLAYER_GAME,
   MULTIPLAYER_GAME_CREATE
 } from "@/store/actions.type";
-import Board from "@/components/Board"
+import Board from "@/components/Board";
 
 export default {
   name: "ResultMultiplayer",
