@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7dea6ff0-8717-4f45-875a-62de0535c75a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/documentation/IPA Bericht.docx" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/IPA Bericht.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentation/Zeitplan.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/Zeitplan.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Board.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/multiplayer/HistoryMultiplayer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/multiplayer/HistoryMultiplayer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/multiplayer/OngoingMultiplayer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/multiplayer/OngoingMultiplayer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/multiplayer/PlayMultiplayer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/multiplayer/PlayMultiplayer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/multiplayer/ResultMultiplayer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/multiplayer/ResultMultiplayer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/singleplayer/HistorySingleplayer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/singleplayer/HistorySingleplayer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/singleplayer/OngoingSingleplayer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/singleplayer/OngoingSingleplayer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/singleplayer/PlaySingleplayer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/singleplayer/PlaySingleplayer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/singleplayer/ResultSingleplayer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/singleplayer/ResultSingleplayer.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +20,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="1n9lNUSEozwmSZK3P26YeCSMQk9" />
   <component name="ProjectViewState">
@@ -22,8 +33,16 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/src/components" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\tic-tac-toe-multiplayer\frontend\src\components" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -35,10 +54,22 @@
       <option name="presentableId" value="Default" />
       <updated>1610810147961</updated>
       <workItem from="1610810149738" duration="12000" />
+      <workItem from="1649354580583" duration="3450000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

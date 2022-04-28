@@ -25,7 +25,7 @@
                   style="cursor: pointer"
                 >
                   <td>{{ game._id }}</td>
-                  <td>{{ game.status }}</td>
+                  <td>{{ game.difficulty }}</td>
                   <td>
                     <board :small="true" v-bind:game="game"/>
                   </td>
