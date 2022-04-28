@@ -8,7 +8,7 @@
     "mongo:start": "docker run --name realworld-mongo -p 27017:27017 mongo & sleep 5",
     "start": "node ./app.js",
     "dev": "nodemon ./app.js",
-    "test": "newman run ./tests/api-tests.postman.json -e ./tests/env-api-tests.postman.json",
+    "test": "jest",
     "stop": "lsof -ti :3000 | xargs kill",
     "mongo:stop": "docker stop realworld-mongo && docker rm realworld-mongo"
   },
@@ -20,6 +20,7 @@
     "express": "4.13.4",
     "express-jwt": "3.3.0",
     "express-session": "1.13.0",
+    "jest": "^28.0.2",
     "jsonwebtoken": "7.1.9",
     "method-override": "2.3.5",
     "methods": "1.1.2",
@@ -34,6 +35,7 @@
     "underscore": "1.8.3"
   },
   "devDependencies": {
+    "mockingoose": "^2.15.2",
     "newman": "^3.8.2",
     "nodemon": "^1.11.0"
   }
