@@ -295,7 +295,7 @@ SingleplayerGameSchema.methods.isValidMove = function(cellNumber) {
  */
 SingleplayerGameSchema.methods.playMove = function(player, cellNumber) {
   if (!this.isValidMove(cellNumber)) {
-    throw "cell not empty";
+    throw new Error("cell not empty");
   }
 
   let char = player ? 'X' : 'O'
@@ -344,4 +344,4 @@ SingleplayerGameSchema.methods.getBoard = function(){
   ];
 };
 
-mongoose.model('SingleplayerGame', SingleplayerGameSchema);
+module.exports = mongoose.model('SingleplayerGame', SingleplayerGameSchema);
