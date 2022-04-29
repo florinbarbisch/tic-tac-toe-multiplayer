@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
+const { builtinModules } = require('module');
 var secret = require('../config').secret;
 
 var UserSchema = new mongoose.Schema({
@@ -46,10 +47,12 @@ UserSchema.methods.toProfileJSONFor = function(user){
     username: this.username
   };
 };
+
 UserSchema.methods.toJSONFor = function(user){
   return {
     _id: this._id,
     username: this.username
   };
 };
-mongoose.model('User', UserSchema);
+
+module.exports = mongoose.model('User', UserSchema);
