@@ -68,7 +68,7 @@ describe('test mongoose User model', () => {
     });
   });
   
-  it('auth json should a username and token', () => {
+  it('auth json should hava a username and token', () => {
     const _doc = {
       _id: '621f4b0f1c74d43035c8dcb5',
       username: 'mustermann',

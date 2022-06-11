@@ -1,5 +1,7 @@
 *.tmp
 
+*.js.snap
+
 # Word temporary
 ~$*.doc*
 
