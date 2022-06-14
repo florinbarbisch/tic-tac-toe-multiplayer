@@ -1,5 +1,5 @@
 const mockingoose = require('mockingoose');
-const User = require('./user');
+const User = require('./User');
 const SingleplayerGame = require('./SingleplayerGame');
 
 describe('test mongoose SingleplayerGame model', () => {
