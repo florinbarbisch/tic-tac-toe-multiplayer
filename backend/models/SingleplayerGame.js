@@ -17,6 +17,13 @@ var SingleplayerGameSchema = new mongoose.Schema({
   cell9: {type: String, enum: ['X', 'O', null], default: null},
 }, {timestamps: true});
 
+/**
+ * Plays a move for the player and then let's the computer play a move, if anyone wins during this process, it will return the winner
+ * 
+ * @param player The player playing the move
+ * @param cellNumber The cell number the player wants to set his X or O
+ * @returns The winner or null if still ongoing
+ */
 SingleplayerGameSchema.methods.move = function(player, cellNumber) {
   this.playMove(player, cellNumber);
 
