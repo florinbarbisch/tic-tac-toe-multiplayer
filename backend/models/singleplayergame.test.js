@@ -875,27 +875,27 @@ describe('test mongoose SingleplayerGame model', () => {
       mockingoose(SingleplayerGame).toReturn(_pre_game, 'findOne');
       
       return SingleplayerGame.findById('621f4aa81c74d43035c8dcb3').exec().then(game => {
-        expect(game.findEmptyCorner([null,  'X', null,
-                                      'X', null, null,
-                                     null,  'O', null])).toEqual(5);
-        expect(game.findEmptyCorner([null,  'X', null,
-                                      'X', null,  'O',
-                                     null, null, null])).toEqual(7);
-        expect(game.findEmptyCorner([null,  'O', null,
-                                     null, null,  'X',
-                                     null,  'O', null])).toEqual(3);
-        expect(game.findEmptyCorner([null, null, null,
-                                      'X', null,  'X',
-                                     null,  'O', null])).toEqual(1);
-        expect(game.findEmptyCorner([null,  'O', null,
-                                     null, null,  'X',
-                                     null,  'O', null])).toEqual(3);
-        expect([1,5].includes(game.findEmptyCorner([null, null, null,
-                                                     'X', null, null,
-                                                    null,  'O', null]))).toBeTruthy();
-        expect([1,3,5,7].includes(game.findEmptyCorner([null, null, null,
-                                                        null, null, null,
-                                                        null, null, null]))).toBeTruthy();
+        expect(game.findEmptySide([null,  'X', null,
+                                    'X', null, null,
+                                   null,  'O', null])).toEqual(5);
+        expect(game.findEmptySide([null,  'X', null,
+                                    'X', null,  'O',
+                                   null, null, null])).toEqual(7);
+        expect(game.findEmptySide([null,  'O', null,
+                                   null, null,  'X',
+                                   null,  'O', null])).toEqual(3);
+        expect(game.findEmptySide([null, null, null,
+                                    'X', null,  'X',
+                                   null,  'O', null])).toEqual(1);
+        expect(game.findEmptySide([null,  'O', null,
+                                   null, null,  'X',
+                                   null,  'O', null])).toEqual(3);
+        expect([1,5].includes(game.findEmptySide([null, null, null,
+                                                   'X', null, null,
+                                                   null, 'O', null]))).toBeTruthy();
+        expect([1,3,5,7].includes(game.findEmptySide([null, null, null,
+                                                      null, null, null,
+                                                      null, null, null]))).toBeTruthy();
       });
     });
   });
