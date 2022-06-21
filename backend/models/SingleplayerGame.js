@@ -99,8 +99,8 @@ SingleplayerGameSchema.methods.aiMove = function(difficulty) {
       }
   }
 
-  // 10000. if ai got to here something wen't wrong
-  throw "ai broke. something wen't wrong";
+  // 10000. if ai got to here something went wrong
+  throw "ai broke. something went wrong";
 }
 
 /**
