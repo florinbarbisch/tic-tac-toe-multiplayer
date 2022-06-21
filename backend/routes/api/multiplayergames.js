@@ -180,7 +180,7 @@ router.post('/:game/move', auth.required, function(req, res, next){
     if (!user) { return res.sendStatus(401); } 
     if (!req.game.movingPlayer || !user.equals(req.game.movingPlayer)) { return res.status(422).send({not: "your turn"}); }
     if (!req.body.cell && req.body.cell !== 0) { return res.status(422).send({cell: "can't be blank"}); }
-    if (!req.game.isValidMove(req.body.cell)) { return res.status(422).send({field: "already set"}); }
+    if (req.game.getBoard()[req.body.cell]) { return res.status(422).send({field: "already set"}); }
     if (req.game.winner !== 'Ongoing') { return res.status(422).send({game: "already finished"}); }
     
     return req.game.move(user, req.body.cell).then(function(){

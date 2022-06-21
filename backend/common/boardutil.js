@@ -127,6 +127,47 @@ isTwoInARow = function(board, a, b, c, player) {
   return null;
 }
 
+/**
+ * Returns winning char. 
+ * Returns 'D' if draw. 
+ * Returns null, if no one won.
+ */
+ getWinner = function(board) {  
+  // check horizontal
+  for (var i = 0; i < 9; i+=3) {
+    let winner = this.isWinningRow(board[i], board[i+1], board[i+2]);
+    if (winner) { return winner; }
+  }
+  
+  // check vertical
+  for (var i = 0; i < 3; i++) {
+    let winner = this.isWinningRow(board[i], board[i+3], board[i+6]);
+    if (winner) { return winner; }
+  }
+
+  // check diagonals
+  let winner = this.isWinningRow(board[0], board[4], board[8]);
+  if (winner) { return winner; }
+  
+  winner = this.isWinningRow(board[2], board[4], board[6]);
+  if (winner) { return winner; }
+
+  // check if board is full
+  for (var i = 0; i < 9; i++) {
+    if (!board[i]) {
+      return null;
+    }
+  }
+  return 'D';
+}
+
+/**
+ * returns winning char or null if no one has won
+ */
+ isWinningRow = function(a, b, c) {
+  return a === b && a === c ? a : null;
+}
+
 module.exports = {
   findEmptySide,
   findEmptyCorner,
@@ -134,5 +175,7 @@ module.exports = {
   findOneInARow,
   isOneInARow,
   findTwoInARow,
-  isTwoInARow
+  isTwoInARow,
+  getWinner,
+  isWinningRow,
 }

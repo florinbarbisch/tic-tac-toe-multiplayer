@@ -73,7 +73,7 @@ router.post('/:game/move', auth.required, function(req, res, next){
   User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
     if (!req.body.cell && req.body.cell !== 0) { return res.status(422).send({cell: "can't be blank"}); }
-    if (!req.game.isValidMove(req.body.cell)) { return res.status(422).send({field: "already set"}); }
+    if (req.game.getBoard()[req.body.cell]) { return res.status(422).send({field: "already set"}); }
     if (req.game.getWinner()) { return res.status(422).send({game: "already finished"}); }
 
     return req.game.move(user, req.body.cell).then(function(){

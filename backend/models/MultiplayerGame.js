@@ -54,9 +54,6 @@ MultiplayerGameSchema.methods.isWinningRow = function(a, b, c) {
   return a === b && a === c ? a : null;
 }
 
-MultiplayerGameSchema.methods.isValidMove = function(cellNumber) {
-  return !this.getBoard()[cellNumber];
-}
 
 MultiplayerGameSchema.methods.saveWinner = function(winner) {
   this.winner = winner || 'Ongoing';
@@ -104,7 +101,7 @@ MultiplayerGameSchema.methods.getWinner = function() {
  * Does not save anything
  */
 MultiplayerGameSchema.methods.playMove = function(player, cellNumber) {
-  if (!this.isValidMove(cellNumber)) {
+  if (this.getBoard[cellNumber]) {
     throw "cell not empty";
   }
   if (!this.movingPlayer.equals(player)) {

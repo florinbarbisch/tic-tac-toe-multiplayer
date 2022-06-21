@@ -122,59 +122,16 @@ SingleplayerGameSchema.methods.saveWinner = function(winner) {
   return this.save();
 }
 
-/**
- * Returns winning char. 
- * Returns 'D' if draw. 
- * Returns null, if no one won.
- */
 SingleplayerGameSchema.methods.getWinner = function() {
-  let board = this.getBoard();
-  
-  // check horizontal
-  for (var i = 0; i < 9; i+=3) {
-    let winner = this.isWinningRow(board[i], board[i+1], board[i+2]);
-    if (winner) { return winner; }
-  }
-  
-  // check vertical
-  for (var i = 0; i < 3; i++) {
-    let winner = this.isWinningRow(board[i], board[i+3], board[i+6]);
-    if (winner) { return winner; }
-  }
-
-  // check diagonals
-  let winner = this.isWinningRow(board[0], board[4], board[8]);
-  if (winner) { return winner; }
-  
-  winner = this.isWinningRow(board[2], board[4], board[6]);
-  if (winner) { return winner; }
-
-  // check if board is full
-  for (var i = 0; i < 9; i++) {
-    if (!board[i]) {
-      return null;
-    }
-  }
-  return 'D';
+  return boardutil.getWinner(this.getBoard());
 }
-
-/**
- * returns winning char or null if no one has won
- */
-SingleplayerGameSchema.methods.isWinningRow = function(a, b, c) {
-  return a === b && a === c ? a : null;
-}
-
-
-SingleplayerGameSchema.methods.isValidMove = function(cellNumber) {
-  return !this.getBoard()[cellNumber];
-}
+SingleplayerGameSchema.methods.isWinningRow = boardutil.isWinningRow
 
 /**
  * Does not save anything
  */
 SingleplayerGameSchema.methods.playMove = function(player, cellNumber) {
-  if (!this.isValidMove(cellNumber)) {
+  if (this.getBoard()[cellNumber]) {
     throw new Error("cell not empty");
   }
 
