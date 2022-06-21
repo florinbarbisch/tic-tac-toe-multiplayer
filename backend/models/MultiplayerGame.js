@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var User = mongoose.model('User');
+const boardutil = require('../common/boardutil.js');
 
 var MultiplayerGameSchema = new mongoose.Schema({
   player1: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
@@ -40,20 +40,11 @@ MultiplayerGameSchema.methods.move = function(player, cellNumber) {
   // check if player won
   let winner = this.getWinner();
   if (winner) {
-    console.log("won");
     return this.saveWinner(winner);
   }
   
   return this.save();
 };
-
-/**
- * returns winning char or null if no one has won
- */
-MultiplayerGameSchema.methods.isWinningRow = function(a, b, c) {
-  return a === b && a === c ? a : null;
-}
-
 
 MultiplayerGameSchema.methods.saveWinner = function(winner) {
   this.winner = winner || 'Ongoing';
@@ -67,41 +58,14 @@ MultiplayerGameSchema.methods.saveWinner = function(winner) {
  * Returns null, if no one won.
  */
 MultiplayerGameSchema.methods.getWinner = function() {
-  let board = this.getBoard();
-  
-  // check horizontal
-  for (var i = 0; i < 9; i+=3) {
-    let winner = this.isWinningRow(board[i], board[i+1], board[i+2]);
-    if (winner) { return winner; }
-  }
-  
-  // check vertical
-  for (var i = 0; i < 3; i++) {
-    let winner = this.isWinningRow(board[i], board[i+3], board[i+6]);
-    if (winner) { return winner; }
-  }
-
-  // check diagonals
-  let winner = this.isWinningRow(board[0], board[4], board[8]);
-  if (winner) { return winner; }
-  
-  winner = this.isWinningRow(board[2], board[4], board[6]);
-  if (winner) { return winner; }
-
-  // check if board is full
-  for (var i = 0; i < 9; i++) {
-    if (!board[i]) {
-      return null;
-    }
-  }
-  return 'D';
+  return boardutil.getWinner(this.getBoard());
 }
 
 /**
  * Does not save anything
  */
 MultiplayerGameSchema.methods.playMove = function(player, cellNumber) {
-  if (this.getBoard[cellNumber]) {
+  if (this.getBoard()[cellNumber]) {
     throw "cell not empty";
   }
   if (!this.movingPlayer.equals(player)) {
@@ -172,4 +136,4 @@ MultiplayerGameSchema.methods.getBoard = function(){
   ];
 };
 
-mongoose.model('MultiplayerGame', MultiplayerGameSchema);
+module.exports = mongoose.model('MultiplayerGame', MultiplayerGameSchema);
