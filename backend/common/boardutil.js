@@ -1,5 +1,69 @@
 
 /**
+ * Heavily complicated over-engineered ai (just a bunch of if's)
+ */
+ aiMove = function(difficulty) {
+  let board = this.getBoard();
+  
+  let index = null; // fall-through cases
+
+  switch (difficulty) {
+    case 'Impossible':
+      // 1. Win: If you have two in a row, play the third to get three in a row.
+      index = this.findTwoInARow(board, 'O');
+      if (index || index === 0) {
+        return index;
+      }
+      
+      // 2. Block: If the opponent has two in a row, play the third to block them.
+      index = this.findTwoInARow(board, 'X');
+      if (index || index === 0) {
+        return index;
+      }
+    case 'Medium':
+      // 3. Create Winning Oppurtunity: Create an opportunity where you can win.
+      index = this.findOneInARow(board, 'O');
+      if (index || index === 0) {
+        return index;
+      }
+
+      /*
+      // 4. Block Winning Oppurtunity: Block an opportunity where the opponent can win.
+      index = this.findOneInARow(board, 'X');
+      if (index || index === 0) {
+        return index;
+      }
+      */
+    case 'Easy':
+      // 5. Center: Play the center.
+      if (!board[4]) {
+        return this.playMove(null, 4);
+      }
+
+      // 6. Opposite Corner: If the opponent is in the corner, play the opposite corner.
+      index = this.findOppositeCorner(board, 'X');
+      if (index || index === 0) {
+        return index;
+      }
+      
+      // 7. Empty Corner: Play an empty corner.
+      index = this.findEmptyCorner(board);
+      if (index || index === 0) {
+        return index;
+      }
+
+      // 8. Empty Side: Play an empty side.
+      index = this.findEmptySide(board);
+      if (index || index === 0) {
+        return index;
+      }
+  }
+
+  // 10000. if ai got to here something went wrong
+  throw "ai broke. something went wrong";
+}
+
+/**
  * Returns a side-index where the cell is empty:
  * 0 1 2
  * 3 4 5
@@ -169,6 +233,7 @@ isTwoInARow = function(board, a, b, c, player) {
 }
 
 module.exports = {
+  aiMove,
   findEmptySide,
   findEmptyCorner,
   findOppositeCorner,

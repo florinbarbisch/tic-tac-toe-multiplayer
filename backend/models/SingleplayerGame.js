@@ -28,7 +28,8 @@ SingleplayerGameSchema.methods.move = function(player, cellNumber) {
   }
   
   // let the ai do it's work
-  this.aiMove(this.difficulty);
+  index = boardutil.aiMove(this.difficulty);
+  this.playMove(null, index);
 
   // check if computers's move won
   winner = this.getWinner();
@@ -39,78 +40,6 @@ SingleplayerGameSchema.methods.move = function(player, cellNumber) {
   
   return this.save();
 };
-
-/**
- * Heavily complicated over-engineered ai (just a bunch of if's)
- */
-SingleplayerGameSchema.methods.aiMove = function(difficulty) {
-  let board = this.getBoard();
-  
-  let index = null; // fall-through cases
-
-  switch (difficulty) {
-    case 'Impossible':
-      // 1. Win: If you have two in a row, play the third to get three in a row.
-      index = this.findTwoInARow(board, 'O');
-      if (index || index === 0) {
-        return this.playMove(null, index);
-      }
-      
-      // 2. Block: If the opponent has two in a row, play the third to block them.
-      index = this.findTwoInARow(board, 'X');
-      if (index || index === 0) {
-        return this.playMove(null, index);
-      }
-    case 'Medium':
-      // 3. Create Winning Oppurtunity: Create an opportunity where you can win.
-      index = this.findOneInARow(board, 'O');
-      if (index || index === 0) {
-        return this.playMove(null, index);
-      }
-
-      /*
-      // 4. Block Winning Oppurtunity: Block an opportunity where the opponent can win.
-      index = this.findOneInARow(board, 'X');
-      if (index || index === 0) {
-        return this.playMove(null, index);
-      }
-      */
-    case 'Easy':
-      // 5. Center: Play the center.
-      if (!board[4]) {
-        return this.playMove(null, 4);
-      }
-
-      // 6. Opposite Corner: If the opponent is in the corner, play the opposite corner.
-      index = this.findOppositeCorner(board, 'X');
-      if (index || index === 0) {
-        return this.playMove(null, index);
-      }
-      
-      // 7. Empty Corner: Play an empty corner.
-      index = this.findEmptyCorner(board);
-      if (index || index === 0) {
-        return this.playMove(null, index);
-      }
-
-      // 8. Empty Side: Play an empty side.
-      index = this.findEmptySide(board);
-      if (index || index === 0) {
-        return this.playMove(null, index);
-      }
-  }
-
-  // 10000. if ai got to here something went wrong
-  throw "ai broke. something went wrong";
-}
-
-SingleplayerGameSchema.methods.findEmptySide      = findEmptySide
-SingleplayerGameSchema.methods.findEmptyCorner    = findEmptyCorner
-SingleplayerGameSchema.methods.findOppositeCorner = boardutil.findOppositeCorner;
-SingleplayerGameSchema.methods.findOneInARow      = boardutil.findOneInARow
-SingleplayerGameSchema.methods.isOneInARow        = boardutil.isOneInARow
-SingleplayerGameSchema.methods.findTwoInARow      = boardutil.findTwoInARow
-SingleplayerGameSchema.methods.isTwoInARow        = boardutil.isTwoInARow
 
 const winnerToStatus = {
   X: 'Won',
@@ -125,7 +54,6 @@ SingleplayerGameSchema.methods.saveWinner = function(winner) {
 SingleplayerGameSchema.methods.getWinner = function() {
   return boardutil.getWinner(this.getBoard());
 }
-SingleplayerGameSchema.methods.isWinningRow = boardutil.isWinningRow
 
 /**
  * Does not save anything
