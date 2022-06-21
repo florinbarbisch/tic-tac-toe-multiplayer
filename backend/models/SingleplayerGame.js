@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var User = mongoose.model('User');
 const boardutil = require('../common/boardutil.js');
 
 var SingleplayerGameSchema = new mongoose.Schema({
@@ -30,7 +29,6 @@ SingleplayerGameSchema.methods.move = function(player, cellNumber) {
   // check if player's move won
   let winner = this.getWinner();
   if (winner) {
-    console.log("won");
     return this.saveWinner(winner);
   }
   
@@ -41,7 +39,6 @@ SingleplayerGameSchema.methods.move = function(player, cellNumber) {
   // check if computers's move won
   winner = this.getWinner();
   if (winner) {
-    console.log("won");
     return this.saveWinner(winner);
   }
   

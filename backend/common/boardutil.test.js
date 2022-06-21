@@ -218,16 +218,12 @@ describe('test the boardutil class', () => {
     for(let i = 0; i < 10_000; i++) {
       let board = [null, null, null, null, null, null, null, null, null];
       board[getRandomMove(board)] = 'X';
-      //console.log('X', board);
       while (boardutil.getWinner(board) == null) {
         let aiMove = boardutil.aiMove(board, 'Impossible');
-        //console.log('index', aiMove);
         expect(board[aiMove]).toBe(null);
         board[aiMove] = 'O';
-        //console.log('O', board);
         if (boardutil.getWinner(board) === null) {
           board[getRandomMove(board)] = 'X';
-          //console.log('X', board);
         }
       }
       expect(['O', 'D'].includes(boardutil.getWinner(board))).toBeTruthy();

@@ -14,28 +14,24 @@
       // 1. Win: If you have two in a row, play the third to get three in a row.
       index = findTwoInARow(board, 'O');
       if (index || index === 0) {
-        //console.log(1);
         return index;
       }
       
       // 2. Block: If the opponent has two in a row, play the third to block them.
       index = findTwoInARow(board, 'X');
       if (index || index === 0) {
-        //console.log(2);
         return index;
       }
     case 'Medium':
       // 3. Empty Corner: Play an empty corner that has two adjacent X.
       index = findEmptyEncircledCorner(board, 'X');
       if (index || index === 0) {
-        //console.log(7);
         return index;
       }
       
       // 4. Create Winning Oppurtunity: Create an opportunity where you can win.
       index = findOneInARow(board, 'O');
       if (index || index === 0) {
-        //console.log(3);
         return index;
       }
 
@@ -49,28 +45,24 @@
     case 'Easy':
       // 6. Center: Play the center.
       if (!board[4]) {
-        //console.log(5);
         return 4;
       }
 
       // 7. Opposite Corner: If the opponent is in the corner, play the opposite corner.
       index = findOppositeCorner(board, 'X');
       if (index || index === 0) {
-        //console.log(6);
         return index;
       }
       
       // 8. Empty Corner: Play an empty corner.
       index = findEmptyCorner(board);
       if (index || index === 0) {
-        //console.log(8);
         return index;
       }
 
       // 9. Empty Side: Play an empty side.
       index = findEmptySide(board);
       if (index || index === 0) {
-        //console.log(9);
         return index;
       }
   }
