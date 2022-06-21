@@ -1,5 +1,32 @@
 const boardutil = require('./boardutil');
 
+// from https://www.rosettacode.org/wiki/Knuth_shuffle#JavaScript
+function knuthShuffle(arr) {
+  var rand, temp, i;
+  for (i = arr.length - 1; i > 0; i -= 1) {
+      rand = Math.floor((i + 1) * Math.random());//get random between zero and i (inclusive)
+      temp = arr[rand];//swap i and the zero-indexed number
+      arr[rand] = arr[i];
+      arr[i] = temp;
+  }
+  return arr;
+}
+
+/**
+ * Returns a random index where the cell is empty, or null if there are no empty cells
+ */
+getRandomMove = function(board) {
+  let indexes = [0,1,2,3,4,5,6,7,8];
+  // shuffle the indexes
+  indexes = knuthShuffle(indexes);
+  for (let i = 0; i < indexes.length; i++) {
+    let index = indexes[i];
+    if (!board[index]) {
+      return index;
+    }
+  }
+  return null;
+}
 
 describe('test the boardutil class', () => {
   
@@ -66,9 +93,9 @@ describe('test the boardutil class', () => {
   });
 
   it('isOneInARow should return the index where a move would create a win possibility', () => {
-    expect(boardutil.isOneInARow(['X',  null, null, null, null, null, null, null, null], 0, 1, 2, 'X') in [1, 2]).toBeTruthy();
-    expect(boardutil.isOneInARow([null, null, 'X',  null, null, null, null, null, null], 0, 1, 2, 'X') in [0, 1]).toBeTruthy();
-    expect(boardutil.isOneInARow([null, 'X',  null, null, null, null, null, null, null], 0, 1, 2, 'X') in [0, 2]).toBeTruthy();
+    expect([1,2].includes(boardutil.isOneInARow(['X',  null, null, null, null, null, null, null, null], 0, 1, 2, 'X'))).toBeTruthy();
+    expect([0,1].includes(boardutil.isOneInARow([null, null, 'X',  null, null, null, null, null, null], 0, 1, 2, 'X'))).toBeTruthy();
+    expect([0,2].includes(boardutil.isOneInARow([null, 'X',  null, null, null, null, null, null, null], 0, 1, 2, 'X'))).toBeTruthy();
     expect(boardutil.isOneInARow(['X',  'X',  null, null, null, null, null, null, null], 0, 1, 2, 'X')).toBe(null);
     expect(boardutil.isOneInARow(['X',  'O',  null, null, null, null, null, null, null], 0, 1, 2, 'X')).toBe(null);
     expect(boardutil.isOneInARow([null, 'O',  null, null, null, null, null, null, null], 0, 1, 2, 'X')).toBe(null);
@@ -139,6 +166,27 @@ describe('test the boardutil class', () => {
                                                          null, null, null,
                                                          null, null, null]))).toBeTruthy();
   });
+  
+  it('findEmptyEncircledCorner should return the index of an empty and encircled corner', () => {
+    expect(boardutil.findEmptyEncircledCorner([null,  'O', null,
+                                                'O', null,  'X',
+                                               null,  'X', null], 'X')).toEqual(8);
+    expect(boardutil.findEmptyEncircledCorner([null,  'X', null,
+                                                'X', null, null,
+                                               null, null, null], 'X')).toEqual(0);
+    expect(boardutil.findEmptyEncircledCorner([null,  'X', null,
+                                               null, null,  'X',
+                                               null, null, null], 'X')).toEqual(2);
+    expect(boardutil.findEmptyEncircledCorner([null, null, null,
+                                                'X', null, null,
+                                               null,  'X', null], 'X')).toEqual(6);
+    expect([0,2,6,8].includes(boardutil.findEmptyEncircledCorner([null,  'X', null,
+                                                                   'X', null,  'X',
+                                                                  null,  'X', null], 'X'))).toBeTruthy();
+    expect([6,8].includes(boardutil.findEmptyEncircledCorner([null,  'O', null,
+                                                               'X', null,  'X',
+                                                              null,  'X', null], 'X'))).toBeTruthy();
+  });
 
   it('findEmptySide should return a side-index where the cell is empty', () => {
 
@@ -165,6 +213,25 @@ describe('test the boardutil class', () => {
                                                        null, null, null]))).toBeTruthy();
   });
 
-  // fuzzy test difficulty hard.
-  
+  // fuzzy testing
+  it('aiMove on difficulty impossible should never allow the player to win if the player starts', () => {
+    for(let i = 0; i < 10_000; i++) {
+      let board = [null, null, null, null, null, null, null, null, null];
+      board[getRandomMove(board)] = 'X';
+      //console.log('X', board);
+      while (boardutil.getWinner(board) == null) {
+        let aiMove = boardutil.aiMove(board, 'Impossible');
+        //console.log('index', aiMove);
+        expect(board[aiMove]).toBe(null);
+        board[aiMove] = 'O';
+        //console.log('O', board);
+        if (boardutil.getWinner(board) === null) {
+          board[getRandomMove(board)] = 'X';
+          //console.log('X', board);
+        }
+      }
+      expect(['O', 'D'].includes(boardutil.getWinner(board))).toBeTruthy();
+    }
+  });
+
 });

@@ -2,59 +2,75 @@
 /**
  * Heavily complicated over-engineered ai (just a bunch of if's)
  */
- aiMove = function(difficulty) {
-  let board = this.getBoard();
-  
+ aiMove = function(board, difficulty) {
+  if (!['Easy', 'Medium', 'Impossible'].includes(difficulty)) {
+    throw new Error("invalid difficulty");
+  }
+
   let index = null; // fall-through cases
 
   switch (difficulty) {
     case 'Impossible':
       // 1. Win: If you have two in a row, play the third to get three in a row.
-      index = this.findTwoInARow(board, 'O');
+      index = findTwoInARow(board, 'O');
       if (index || index === 0) {
+        //console.log(1);
         return index;
       }
       
       // 2. Block: If the opponent has two in a row, play the third to block them.
-      index = this.findTwoInARow(board, 'X');
+      index = findTwoInARow(board, 'X');
       if (index || index === 0) {
+        //console.log(2);
         return index;
       }
     case 'Medium':
-      // 3. Create Winning Oppurtunity: Create an opportunity where you can win.
-      index = this.findOneInARow(board, 'O');
+      // 3. Empty Corner: Play an empty corner that has two adjacent X.
+      index = findEmptyEncircledCorner(board, 'X');
       if (index || index === 0) {
+        //console.log(7);
+        return index;
+      }
+      
+      // 4. Create Winning Oppurtunity: Create an opportunity where you can win.
+      index = findOneInARow(board, 'O');
+      if (index || index === 0) {
+        //console.log(3);
         return index;
       }
 
       /*
-      // 4. Block Winning Oppurtunity: Block an opportunity where the opponent can win.
-      index = this.findOneInARow(board, 'X');
+      // 5. Block Winning Oppurtunity: Block an opportunity where the opponent can win.
+      index = findOneInARow(board, 'X');
       if (index || index === 0) {
         return index;
       }
       */
     case 'Easy':
-      // 5. Center: Play the center.
+      // 6. Center: Play the center.
       if (!board[4]) {
-        return this.playMove(null, 4);
+        //console.log(5);
+        return 4;
       }
 
-      // 6. Opposite Corner: If the opponent is in the corner, play the opposite corner.
-      index = this.findOppositeCorner(board, 'X');
+      // 7. Opposite Corner: If the opponent is in the corner, play the opposite corner.
+      index = findOppositeCorner(board, 'X');
       if (index || index === 0) {
+        //console.log(6);
         return index;
       }
       
-      // 7. Empty Corner: Play an empty corner.
-      index = this.findEmptyCorner(board);
+      // 8. Empty Corner: Play an empty corner.
+      index = findEmptyCorner(board);
       if (index || index === 0) {
+        //console.log(8);
         return index;
       }
 
-      // 8. Empty Side: Play an empty side.
-      index = this.findEmptySide(board);
+      // 9. Empty Side: Play an empty side.
+      index = findEmptySide(board);
       if (index || index === 0) {
+        //console.log(9);
         return index;
       }
   }
@@ -92,6 +108,20 @@
 }
 
 /**
+ * Return a corner-index where the cell is empty, but the adjecant cells are taken by the other player:
+ * 0 1 2
+ * 3 4 5
+ * 6 7 8
+ */
+findEmptyEncircledCorner = function(board, otherPlayer) {
+  if (!board[0] && board[1] === otherPlayer && board[3] === otherPlayer) { return 0; }
+  if (!board[2] && board[1] === otherPlayer && board[5] === otherPlayer) { return 2; }
+  if (!board[6] && board[3] === otherPlayer && board[7] === otherPlayer) { return 6; }
+  if (!board[8] && board[5] === otherPlayer && board[7] === otherPlayer) { return 8; }
+  return null;
+}
+
+/**
  * Returns a corner-index where the cell is empty, but the opposite cell is taken by the player:
  * 0 1 2
  * 3 4 5
@@ -111,21 +141,21 @@
  findOneInARow = function(board, player) {
   // check horizontal
   for (var i = 0; i < 9; i+=3) {
-    let index = this.isOneInARow(board, i, i+1, i+2, player);
+    let index = isOneInARow(board, i, i+1, i+2, player);
     if (index || index === 0) { return index; }
   }
   
   // check vertical
   for (var i = 0; i < 3; i++) {
-    let index = this.isOneInARow(board, i, i+3, i+6, player);
+    let index = isOneInARow(board, i, i+3, i+6, player);
     if (index || index === 0) { return index; }
   }
   
   // check diagonals
-  let index = this.isOneInARow(board, 0, 4, 8, player);
+  let index = isOneInARow(board, 0, 4, 8, player);
   if (index || index === 0) { return index; }
   
-  index = this.isOneInARow(board, 2, 4, 6, player);
+  index = isOneInARow(board, 2, 4, 6, player);
   if (index || index === 0) { return index; }
 
   return null;
@@ -137,13 +167,13 @@
  */
 isOneInARow = function(board, a, b, c, player) {
   if (board[a] === board[b] && !board[a] && board[c] === player) {
-    return b;
+    return a;
   }
   if (board[a] === board[c] && !board[a] && board[b] === player) {
     return a;
   }
   if (board[b] === board[c] && !board[b] && board[a] === player) {
-    return b;
+    return c;
   }
   return null;
 }
@@ -154,21 +184,21 @@ isOneInARow = function(board, a, b, c, player) {
  findTwoInARow = function(board, player) {
   // check horizontal
   for (var i = 0; i < 9; i+=3) {
-    let index = this.isTwoInARow(board, i, i+1, i+2, player);
+    let index = isTwoInARow(board, i, i+1, i+2, player);
     if (index || index === 0) { return index; }
   }
   
   // check vertical
   for (var i = 0; i < 3; i++) {
-    let index = this.isTwoInARow(board, i, i+3, i+6, player);
+    let index = isTwoInARow(board, i, i+3, i+6, player);
     if (index || index === 0) { return index; }
   }
 
   // check diagonals
-  let index = this.isTwoInARow(board, 0, 4, 8, player);
+  let index = isTwoInARow(board, 0, 4, 8, player);
   if (index || index === 0) { return index; }
   
-  index = this.isTwoInARow(board, 2, 4, 6, player);
+  index = isTwoInARow(board, 2, 4, 6, player);
   if (index || index === 0) { return index; }
 
   return null;
@@ -199,21 +229,21 @@ isTwoInARow = function(board, a, b, c, player) {
  getWinner = function(board) {  
   // check horizontal
   for (var i = 0; i < 9; i+=3) {
-    let winner = this.isWinningRow(board[i], board[i+1], board[i+2]);
+    let winner = isWinningRow(board[i], board[i+1], board[i+2]);
     if (winner) { return winner; }
   }
   
   // check vertical
   for (var i = 0; i < 3; i++) {
-    let winner = this.isWinningRow(board[i], board[i+3], board[i+6]);
+    let winner = isWinningRow(board[i], board[i+3], board[i+6]);
     if (winner) { return winner; }
   }
 
   // check diagonals
-  let winner = this.isWinningRow(board[0], board[4], board[8]);
+  let winner = isWinningRow(board[0], board[4], board[8]);
   if (winner) { return winner; }
   
-  winner = this.isWinningRow(board[2], board[4], board[6]);
+  winner = isWinningRow(board[2], board[4], board[6]);
   if (winner) { return winner; }
 
   // check if board is full
@@ -236,6 +266,7 @@ module.exports = {
   aiMove,
   findEmptySide,
   findEmptyCorner,
+  findEmptyEncircledCorner,
   findOppositeCorner,
   findOneInARow,
   isOneInARow,

@@ -28,7 +28,7 @@ SingleplayerGameSchema.methods.move = function(player, cellNumber) {
   }
   
   // let the ai do it's work
-  index = boardutil.aiMove(this.difficulty);
+  index = boardutil.aiMove(this.getBoard(), this.difficulty);
   this.playMove(null, index);
 
   // check if computers's move won
