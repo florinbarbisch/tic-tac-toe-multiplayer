@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var SingleplayerGame = mongoose.model('SingleplayerGame');
 var User = mongoose.model('User');
-var auth = require('../auth');
 
 exports.getSingleplayerGamesController = function(req, res, next) {
   User.findById(req.payload.id).then(function(user){
