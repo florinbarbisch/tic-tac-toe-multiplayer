@@ -13,7 +13,9 @@
               class="border rounded-pill form-control"
               id="inviteMode"
               v-model="inviteMode"
+              required
             >
+              <option value="">Choose an invite mode</option>
               <option value="random">Random Opponent</option>
               <option value="select">Select Opponent</option>
               <option value="link">Invite with Link</option>
@@ -25,7 +27,9 @@
               class="border rounded-pill form-control"
               id="opponent"
               v-model="opponent"
+              required
             >
+              <option value="">Choose an opponent</option>
               <option :value="user._id" v-for="user in users" :key="user._id">{{
                 user.username
               }}</option>
@@ -54,8 +58,8 @@ export default {
   data() {
     return {
       errorHandler: null,
-      inviteMode: "select",
-      opponent: null
+      inviteMode: "",
+      opponent: ""
     };
   },
   mounted() {

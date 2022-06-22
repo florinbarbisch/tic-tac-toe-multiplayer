@@ -14,6 +14,7 @@
               v-model="difficulty"
               required
             >
+              <option value="">Select a difficulty</option>
               <option value="Easy">Easy</option>
               <option value="Medium">Medium</option>
               <option value="Impossible">Impossible</option>
@@ -41,7 +42,7 @@ export default {
   data() {
     return {
       errorHandler: null,
-      difficulty: "Easy"
+      difficulty: ""
     };
   },
   mounted() {
